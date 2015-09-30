@@ -1,0 +1,163 @@
+<!doctype html>
+
+
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Bullet Dodge </title>        
+		
+		<script src="/eureca.js"></script>
+		
+		<script src="./js/phaser.js" type="text/javascript"></script>		
+		<script src="./js/attackdefend.js" type="text/javascript"></script>
+		
+		
+    </head>
+    <body>
+
+    	<div>
+
+    		<button id="but1" type="button" onclick="join()">join</button>
+    	</div>
+	<script type="text/javascript">
+		var eurecaServer;
+		//create game board
+		var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: null, update: update, render: render });
+		//indicates current room id
+		var currentroom;
+
+		//waiting text
+		var wait;
+
+
+
+		//when click join
+		function join()
+		{
+			var eurecaClient = new Eureca.Client();
+			
+			//send server that user clicked join
+			eurecaClient.ready(function (proxy) {		
+				
+				eurecaServer = proxy;
+				proxy.findGame();
+			});
+			
+			
+			//actually creates game for user
+			eurecaClient.exports.setId = function(id, room) 
+			{
+				if(wait!=undefined)
+				{
+					wait.visible = false;
+				}
+				else
+				{
+					var elem = document.getElementById('but1');
+    				elem.parentNode.removeChild(elem);
+				}
+				
+				myId = id;
+				currentroom = room;
+				create();
+				eurecaServer.handshake();
+				ready = true;
+
+			}	
+			
+			//delete user
+			eurecaClient.exports.kill = function(id)
+			{	
+				if(roomList[currentroom][id])
+				{
+					roomList[currentroom][id].kill();
+				}
+			}	
+			
+			//spawn tank
+			eurecaClient.exports.spawnEnemy = function(i, x, y, cr)
+			{
+				//if it is myself just return
+				if(myId == i)
+				{
+					return;
+				}
+
+				console.log('SPAWN');
+
+				//if it is correct room spawn tank
+				if(cr == currentroom)
+				{
+					if(myId != cr)
+					{
+						var pln = new Plane(i,game,plane);
+						roomList[currentroom][i] = pln;
+					}
+					
+				}
+				
+				//start game
+				game.paused=false;
+				//start timer
+				game.time.reset();
+				//game started
+				started = true;
+
+
+			}
+			
+			//update when plane moved
+			eurecaClient.exports.updateState = function(id, state)
+			{
+				console.log('++++++++++'+id);
+				if(roomList[currentroom][id])
+				{
+					roomList[currentroom][id].cursor = state;
+					roomList[currentroom][id].plane.x = state.x;
+					roomList[currentroom][id].plane.y = state.y;
+					//update functon in game js
+					roomList[currentroom][id].update();
+
+				}
+	
+			}
+
+			//update when bullet shoots
+			eurecaClient.exports.updateBullet = function(x, y, px, py, room)
+			{
+				console.log("shoot");
+				var bullet = bullets.getFirstExists(false);
+				
+		        bullet.reset(x, y);
+
+		        bullet.rotation = game.physics.arcade.moveToXY(bullet, px, py, 800, 500);
+	
+			}
+
+			eurecaClient.exports.wait = function()
+			{
+				var elem = document.getElementById('but1');
+    			elem.parentNode.removeChild(elem);
+
+    			wait = game.add.text(150,310,'Waiting for opponent to connect', { font: '34px Arial', fill: '#fff' });
+	
+			}
+
+			eurecaClient.exports.updateItem = function(x, y, item ,room)
+			{	
+				console.log("itemitem");
+				if(item == "star")
+				{
+					star = game.add.sprite( x, y ,'star');
+					game.physics.enable(star, Phaser.Physics.ARCADE);
+		        	itemexist = 1;
+				}
+		           
+	
+			}
+
+
+		}
+	</script>
+	</body>
+</html>

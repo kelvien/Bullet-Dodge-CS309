@@ -1,0 +1,189 @@
+/*MAIN*/
+div#main{
+	background-image: url("/img/assets/main_screenshot.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+	padding: 20px;
+}
+
+
+/*END OF MAIN*/
+#chat_fixed_bottom{
+	position:fixed;
+	bottom: 0;
+	right: 0;
+}
+
+#chat_fixed_bottom p{
+	margin: 0 0 0px;
+}
+
+#friends_list{
+	padding: 5px;
+	background-color: #f7f7f7;
+	width: 205px;
+	text-align: center;
+	cursor: pointer;
+	margin-left: 10px;
+}
+
+#chat_friends{
+	background-color: white;
+}
+
+.chat_friend, .find_friend, .friend_request{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin-right: 50px;
+}
+
+.chat_friend_status, .find_friend_status, .friend_request_button{
+	float:right;
+	color: gray;
+	text-align: center;
+	padding: 0 5px;
+}
+
+#chat_with_friends_container{
+	position: absolute;
+	bottom: 0;
+	right: 280px;
+	z-index: 6;
+}
+
+.chat_with_friend{
+	width: 205px;
+	height: 200px;
+	border: 1px solid black;
+	background-color: white;
+	margin-left: 10px;
+}
+
+.chat_with_friend_conversation{
+	overflow-y: scroll;
+	height: 145px;
+	margin: 0!important;
+	width: 100%;
+	padding: 5px;
+}
+
+.chat_with_friend_close{
+	float:right!important;
+	font-style: italic;
+	font-weight: normal;
+	font-size: 14px;
+}
+
+.chat_with_friend_title p{
+	float: left;
+	font-weight: bolder;
+	font-size: 16px;
+	border-bottom: 1px solid black;
+}
+
+
+
+.chat_with_friend_enter{
+	position: absolute;
+	bottom: 0;
+	width: 203px;
+}
+
+.message_from_you{
+	text-align: right;
+}
+
+.message_from_someone{
+	text-align: left;
+}
+
+/*Snap menu*/
+.snap-drawers {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+}
+.snap-drawer {
+  background: #323949;
+  color: #eee;
+}
+.snap-drawer-left {
+  left: 0;
+  z-index: 1;
+}
+.snapjs-right .snap-drawer-left {
+  display: block;
+  right: 0;
+  left: auto;
+}
+.snap-drawer {
+  position: absolute;
+  top: 0;
+  right: auto;
+  bottom: 0;
+  left: auto;
+  width: 265px;
+  height: auto;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transition: width 0.3s ease;
+  -moz-transition: width 0.3s ease;
+  -ms-transition: width 0.3s ease;
+  -o-transition: width 0.3s ease;
+  transition: width 0.3s ease;
+  padding: 10px;
+}
+
+.snap-content {
+  background: #fff;
+}
+
+.snap-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  z-index: 2;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.snapjs-right .snap-drawer-left {
+  display: block;
+  right: 0;
+  left: auto;
+}
+
+.findFriend{
+	width: 100%;
+	border-radius: 10px;
+	color: black;
+	margin-bottom:10px;
+}
+
+.findFriend_list{
+	height: 200px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.label_button{
+	text-decoration: none !important;
+	cursor: pointer;
+}
+
+
